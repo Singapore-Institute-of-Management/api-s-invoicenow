@@ -8,12 +8,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
 http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
 	<sub-flow name="incvoicenow-impl:authentication" doc:id="18b509ed-48a1-4f17-a262-687207b3dfba" >
-		<json-logger:logger doc:name="Logger: Start" doc:id="38b95456-a9cd-4302-9565-af5ec4b0dcee" config-ref="JSON_Logger_Config" message='#["auth start flow"]' category="${json.logger.application.catalog}">
-			<json-logger:content ><![CDATA[#[import modules::JSONLoggerModule output application/json ---
-{
-    payload: JSONLoggerModule::stringifyNonJSON(payload) 
-}]]]></json-logger:content>
-		</json-logger:logger>
+		<logger level="INFO" doc:name="Logger" doc:id="b8fb31cf-c200-4f3f-babe-589508fc26d4" message="## auth flow start ##"/>
 		<ee:transform doc:name="Prepare payload" doc:id="950da76f-4294-4965-a3a7-55c68a056632">
 			<ee:message>
 				<ee:set-payload resource="dw/receipt-request-transform.dwl" />
@@ -23,13 +18,11 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
 		<ee:transform doc:name="Transform Message" doc:id="7f4e6e94-bd17-4704-b6d4-6b645bcfb047" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
-{
-}]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<json-logger:logger doc:name="Logger" doc:id="e19adba9-af2c-4fa1-8218-99b10b41f980" config-ref="JSON_Logger_Config" message='#["auth Response"]' tracePoint="AFTER_REQUEST" category="${json.logger.application.catalog}">
-		</json-logger:logger>
+		<logger level="INFO" doc:name="Logger" doc:id="2b0bf582-9e2d-40c6-be28-0fb2f70a15dc" message="## auth flow end ##"/>
 	</sub-flow>
 </mule>

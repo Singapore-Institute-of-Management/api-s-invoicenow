@@ -2,6 +2,8 @@ http:
   private.port: "8091"
   host: "0.0.0.0"
 
+response:
+  timeout: "30000"
 
 invoicenow:
   host: "https://peppol.datapost.com.sg"

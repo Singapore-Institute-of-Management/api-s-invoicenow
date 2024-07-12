@@ -32,11 +32,10 @@ http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/m
 		doc:name="Configuration properties"
 		doc:id="818965a7-307f-4b95-ae98-494fe1b6b1d4"
 		file="properties/${mule.env}.yaml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="895d657d-b14d-4b57-8dbb-d20945d77dbc" file="properties\common-properties.yaml" />
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="5a45641c-2772-480f-a6c1-5e7d10245307" file="secure-properties/secure-${mule.env}.yaml" key="${enc.key}" >
 	</secure-properties:config>
-	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="1f74fbf8-a992-41fe-9e69-afa1493f32ab" environment="${mule.env}" contentFieldsDataMasking="client_secret,password"/>
 	<http:request-config name="Invoicenow_Request_configuration" doc:name="HTTP Request configuration" doc:id="50838fe8-859d-4588-9e30-018cbb55f6a5">
 		<http:request-connection host="${invoicenow.host}" protocol="HTTPS"/>
 	</http:request-config>
-	<json-logger:config name="JSON_Logger_Config1" doc:name="JSON Logger Config" doc:id="540d5286-0abf-41c8-9b1b-b35e6d1080f5" environment="${mule.env}" />
 </mule>

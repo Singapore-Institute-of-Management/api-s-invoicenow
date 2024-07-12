@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
 http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
 	<sub-flow name="invoicenow-impl:invoicenow" doc:id="de2cd487-d9f0-40fe-b451-1d58760b5a66" >
-		<json-logger:logger doc:name="Logger" doc:id="d8101277-0588-4c0a-99f5-b3b157e3ab8b" config-ref="JSON_Logger_Config" message="### invoice flow start"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8c3391a6-98ea-4cb1-b69c-54dae045a878" message="### invoice flow start ###"/>
 		<ee:transform doc:name="Transform Message" doc:id="32aea205-4699-4ed9-aac8-b7c8d0f0014b" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -17,16 +17,21 @@ output application/xml
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<http:request method="PUT" doc:name="Request" doc:id="5d524ee8-1440-4906-9d65-10e036a61c14" config-ref="Invoicenow_Request_configuration" path="${invoicenow.documenttypeinvoice}"/>
+		<http:request method="PUT" doc:name="Request" doc:id="5d524ee8-1440-4906-9d65-10e036a61c14" config-ref="Invoicenow_Request_configuration" path="${invoicenow.documenttypeinvoice}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "Bearer " ++ vars.accesstoken
+}]]]></http:headers>
+		</http:request>
 		<ee:transform doc:name="Transform Message" doc:id="9c37cf95-7830-42d6-a10f-b4ef5e64aa1a" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
-{
-}]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<json-logger:logger doc:name="Logger" doc:id="c287903a-a15f-462d-b2b7-d618c2ff2c12" message="### invoice flow end ##" config-ref="JSON_Logger_Config"/>	
+		<logger level="INFO" doc:name="Logger" doc:id="d859e259-732a-483b-bf87-bd244661abf0" message="### invoice flow end ###"/>	
 	</sub-flow>
 </mule>
