@@ -1,0 +1,4 @@
+### JSON Logger configuration ###
+json.logger.application.name: ${project.artifactId}
+json.logger.application.version: ${project.version}
+json.logger.application.catalog: "org.mule.extension.jsonlogger.JsonLogger"

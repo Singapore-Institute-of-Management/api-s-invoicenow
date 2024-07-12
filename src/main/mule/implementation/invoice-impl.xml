@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<sub-flow name="invoicenow-impl:invoicenow" doc:id="de2cd487-d9f0-40fe-b451-1d58760b5a66" >
+		<json-logger:logger doc:name="Logger" doc:id="d8101277-0588-4c0a-99f5-b3b157e3ab8b" config-ref="JSON_Logger_Config" message="### invoice flow start"/>
+		<ee:transform doc:name="Transform Message" doc:id="32aea205-4699-4ed9-aac8-b7c8d0f0014b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="PUT" doc:name="Request" doc:id="5d524ee8-1440-4906-9d65-10e036a61c14" config-ref="Invoicenow_Request_configuration" path="${invoicenow.documenttypeinvoice}"/>
+		<ee:transform doc:name="Transform Message" doc:id="9c37cf95-7830-42d6-a10f-b4ef5e64aa1a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<json-logger:logger doc:name="Logger" doc:id="c287903a-a15f-462d-b2b7-d618c2ff2c12" message="### invoice flow end ##" config-ref="JSON_Logger_Config"/>	
+	</sub-flow>
+</mule>

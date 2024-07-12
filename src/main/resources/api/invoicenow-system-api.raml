@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: InvoiceNow System API
+version: 1.0
+protocols:
+  - HTTPS
+
+
+/authentication:
+  post:
+    description: auth response
+    body:
+      application/json:
+    responses:
+      200:
+        body:
+          application/json:
+
+
+/invoice:
+  post:
+    description: Invoicenow Response
+    body:
+      application/json:
+            
+    responses:
+      200:
+        body:
+          application/json:
+                

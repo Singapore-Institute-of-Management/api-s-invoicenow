@@ -1,0 +1,11 @@
+http:
+  private.port: "8091"
+  host: "0.0.0.0"
+
+
+invoicenow:
+  host: "https://peppol.datapost.com.sg"
+  version: "1.0"
+  port: "443"
+  authentication : "/app/services/rest/auth/token"
+  documenttypeinvoice: "invoices/peppol-invoice-2"
